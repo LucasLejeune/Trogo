@@ -1,0 +1,19 @@
+{
+  "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "postcss-loader": "^7.3.4",
+    "tailwindcss": "^3.4.4",
+    "webpack-cli": "^5.1.4",
+    "webpack-notifier": "^1.15.0"
+  },
+  "scripts": {
+    "dev": "symfony server:start",
+    "watch": "webpack --watch",
+    "build": "webpack",
+    "test": "php bin/phpunit"
+  },
+  "dependencies": {
+    "@symfony/webpack-encore": "^4.6.1"
+  }
+}
