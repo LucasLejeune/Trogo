@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue sur Trogo
+{% endblock %}
+
+{% block body %}
+	<div class="bg-gradient-to-r from-slate-500 to-slate-800 h-screen">
+		<div class="grid grid-cols-1 place-items-center h-screen">
+			<div class="grid grid-cols-1 place-items-center">
+				<h1 class="title text-8xl text-white mb-3">Trogo</h1>
+				<h3 class="text-white">
+					<a href="{{ path('app_gallery') }}" class="underline">Gallerie</a>
+					-
+					<a href="{{ path('app_home') }}" class="underline">Accueil</a>
+					-
+					<a href="{{ path('app_profile') }}" class="underline">Profil</a>
+				</h3>
+			</div>
+		</div>
+	</div>
+
+
+	<style>
+		.title {
+			font-family: 'Nothing You Could Do';
+		}
+	</style>
+{% endblock %}

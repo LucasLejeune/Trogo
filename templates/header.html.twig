@@ -1,0 +1,15 @@
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+
+<nav class="h-14 bg-gray-600 sticky top-0">
+	<div class="flex">
+		<img src="logo.png" width="60rem" height="auto" class="rounded-full">
+		{% if app.user %}
+			<a href="{{ path('app_logout') }}" class="underline text-white">Se déconnecter</a>
+		{% else %}
+			<div>
+				<a href="{{ path('app_login') }}" class="underline text-white">Se connecter</a>
+				<a href="{{ path('app_register') }}" class="underline text-white">S'inscrire</a>
+			</div>
+		{% endif %}
+	</div>
+</nav>
