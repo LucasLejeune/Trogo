@@ -31,7 +31,6 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            $user->setDescription($form->get('description')->getData());
             $user->setCreatedAt(new DateTimeImmutable('now'));
             $entityManager->persist($user);
             $entityManager->flush();
