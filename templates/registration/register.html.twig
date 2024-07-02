@@ -11,10 +11,9 @@
 			<div class="flex justify-content-center">
 				<h1 class="h1">S'inscrire</h1>
 			</div>
-
+			{{ form_start(registrationForm) }}
 			{{ form_errors(registrationForm) }}
 
-			{{ form_start(registrationForm) }}
 			{{ form_row(registrationForm.email, {'attr': {'class' : 'form-control mb-3'}}) }}
 			{{ form_row(registrationForm.username, {'attr': {'class' : 'form-control mb-3'}}) }}
 			{{ form_row(registrationForm.plainPassword, {'attr': {'class' : 'form-control mb-3'}}) }}

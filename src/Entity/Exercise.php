@@ -42,6 +42,10 @@ class Exercise
     #[ORM\ManyToMany(targetEntity: Muscle::class, inversedBy: 'exercises')]
     private Collection $muscles;
 
+    #[ORM\ManyToOne(inversedBy: 'exercises')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Difficulty $difficulty = null;
+
     public function __construct()
     {
         $this->workouts = new ArrayCollection();
@@ -169,6 +173,18 @@ class Exercise
     public function removeMuscle(Muscle $muscle): static
     {
         $this->muscles->removeElement($muscle);
+
+        return $this;
+    }
+
+    public function getDifficulty(): ?Difficulty
+    {
+        return $this->difficulty;
+    }
+
+    public function setDifficulty(?Difficulty $difficulty): static
+    {
+        $this->difficulty = $difficulty;
 
         return $this;
     }

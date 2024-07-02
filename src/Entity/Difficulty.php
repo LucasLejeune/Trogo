@@ -2,31 +2,27 @@
 
 namespace App\Entity;
 
-use App\Repository\MuscleRepository;
+use App\Repository\DifficultyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: MuscleRepository::class)]
-class Muscle
+#[ORM\Entity(repositoryClass: DifficultyRepository::class)]
+class Difficulty
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
     /**
      * @var Collection<int, Exercise>
      */
-    #[ORM\ManyToMany(targetEntity: Exercise::class, mappedBy: 'muscles')]
+    #[ORM\OneToMany(targetEntity: Exercise::class, mappedBy: 'difficulty')]
     private Collection $exercises;
-
-    #[ORM\ManyToOne(inversedBy: 'muscles')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?BodyZone $bodyZone = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
 
     public function __construct()
     {
@@ -45,6 +41,18 @@ class Muscle
         return $this;
     }
 
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Exercise>
      */
@@ -57,7 +65,7 @@ class Muscle
     {
         if (!$this->exercises->contains($exercise)) {
             $this->exercises->add($exercise);
-            $exercise->addMuscle($this);
+            $exercise->setDifficulty($this);
         }
 
         return $this;
@@ -66,32 +74,11 @@ class Muscle
     public function removeExercise(Exercise $exercise): static
     {
         if ($this->exercises->removeElement($exercise)) {
-            $exercise->removeMuscle($this);
+            // set the owning side to null (unless already changed)
+            if ($exercise->getDifficulty() === $this) {
+                $exercise->setDifficulty(null);
+            }
         }
-
-        return $this;
-    }
-
-    public function getBodyZone(): ?BodyZone
-    {
-        return $this->bodyZone;
-    }
-
-    public function setBodyZone(?BodyZone $bodyZone): static
-    {
-        $this->bodyZone = $bodyZone;
-
-        return $this;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): static
-    {
-        $this->name = $name;
 
         return $this;
     }
