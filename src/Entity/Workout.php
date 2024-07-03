@@ -19,20 +19,17 @@ class Workout
     private ?string $name = null;
 
     /**
-     * @var Collection<int, User>
-     */
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'workouts')]
-    private Collection $users;
-
-    /**
      * @var Collection<int, Exercise>
      */
     #[ORM\ManyToMany(targetEntity: Exercise::class, inversedBy: 'workouts')]
     private Collection $exercises;
 
+    #[ORM\ManyToOne(inversedBy: 'workouts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     public function __construct()
     {
-        $this->users = new ArrayCollection();
         $this->exercises = new ArrayCollection();
     }
 
@@ -61,30 +58,6 @@ class Workout
     }
 
     /**
-     * @return Collection<int, User>
-     */
-    public function getUser(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(User $user): static
-    {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): static
-    {
-        $this->users->removeElement($user);
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Exercise>
      */
     public function getExercise(): Collection
@@ -104,6 +77,18 @@ class Workout
     public function removeExercise(Exercise $exercise): static
     {
         $this->exercises->removeElement($exercise);
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

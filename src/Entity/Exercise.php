@@ -46,6 +46,9 @@ class Exercise
     #[ORM\JoinColumn(nullable: false)]
     private ?Difficulty $difficulty = null;
 
+    #[ORM\ManyToOne(inversedBy: 'exercises')]
+    private ?ExerciseType $exerciseType = null;
+
     public function __construct()
     {
         $this->workouts = new ArrayCollection();
@@ -185,6 +188,18 @@ class Exercise
     public function setDifficulty(?Difficulty $difficulty): static
     {
         $this->difficulty = $difficulty;
+
+        return $this;
+    }
+
+    public function getExerciseType(): ?ExerciseType
+    {
+        return $this->exerciseType;
+    }
+
+    public function setExerciseType(?ExerciseType $exerciseType): static
+    {
+        $this->exerciseType = $exerciseType;
 
         return $this;
     }

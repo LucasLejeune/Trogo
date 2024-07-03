@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gérer l'équipement{% endblock %}
+
+{% block body %}
+    <div>
+        {% if userEquipments | length > 0 %}
+            <h1 class="h1">Votre équipement</h1>
+            <div class="row ms-3">
+                {% for userEquipment in userEquipments %}
+                    <div class="card col-md-3 mb-3 me-3" style="width: 18rem;">
+                        <img src="https://static.vecteezy.com/system/resources/previews/018/016/876/non_2x/set-of-sports-round-icons-collection-of-20-symbols-in-circles-sports-equipment-vector.jpg"
+                             class="card-img-top" alt="...">
+                        <hr>
+                        <div class="card-body">
+                            <h5 class="card-title h5">{{ userEquipment.name }}
+                                <a role="button" class="btn"
+                                   href="{{ path('delete_user_equipment', {'user' : user.id, 'equipment': userEquipment.id}) }}">
+                                    <i class="fa-solid fa-circle-minus fa-xl"></i>
+                                </a>
+                            </h5>
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <h1 class="h1">Équipement</h1>
+        <div class="row ms-3">
+            {% for equipment in equipments %}
+                <div class="card col-md-3 mb-3 me-3" style="width: 18rem;">
+                    <img src="https://static.vecteezy.com/system/resources/previews/018/016/876/non_2x/set-of-sports-round-icons-collection-of-20-symbols-in-circles-sports-equipment-vector.jpg"
+                         class="card-img-top" alt="...">
+                    <hr>
+                    <div class="card-body">
+                        <h5 class="card-title h5">{{ equipment.name }}
+                            <a role="button" class="btn"
+                               href="{{ path('add_user_equipment', {'user' : user.id, 'equipment': equipment.id}) }}">
+                                <i class="fa-solid fa-circle-plus fa-xl"></i>
+                            </a>
+                        </h5>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
