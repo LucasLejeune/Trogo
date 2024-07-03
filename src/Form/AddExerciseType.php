@@ -30,13 +30,13 @@ class AddExerciseType extends AbstractType
                 'label' => 'Difficulté',
                 'choice_label' => 'name',
                 'attr' => [
-                    'class' => 'form-select mb-3',
+                    'class' => 'form-select',
                 ]
             ])
             ->add('muscles', EntityType::class, [
                 'class' => Muscle::class,
                 'label' => 'Muscle',
-                'expanded' => false,
+                'expanded' => true,
                 'multiple' => true,
                 'choice_label' => 'name',
                 'attr' => [
@@ -46,7 +46,7 @@ class AddExerciseType extends AbstractType
             ->add('equipments', EntityType::class, [
                 'class' => Equipment::class,
                 'label' => 'Équipement',
-                'expanded' => false,
+                'expanded' => true,
                 'multiple' => true,
                 'choice_label' => 'name',
                 'required' => false,
@@ -57,7 +57,7 @@ class AddExerciseType extends AbstractType
             ->add('bodyZones', EntityType::class, [
                 'class' => BodyZone::class,
                 'label' => 'Zone du corps',
-                'expanded' => false,
+                'expanded' => true,
                 'multiple' => true,
                 'choice_label' => 'name',
                 'attr' => [

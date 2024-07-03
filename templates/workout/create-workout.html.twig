@@ -13,7 +13,16 @@
                 <span class="input-group-text" id="name">Nom</span>
                 {{ form_widget(form.name) }}
             </div>
-            {{ form_row(form.exercises) }}
+            <h3 class="h3">Sélectionner un ou plusieurs exercices</h3>
+            {% for exercise in form.exercises %}
+                <div class="form-check">
+                    {{ form_widget(exercise, {'attr' : {'class': 'form-check-input'}}) }}
+                    <label class="form-check-label" for="flexCheckDefault">
+                        {{ form_label(exercise) }}
+                    </label>
+                </div>
+
+            {% endfor %}
             <div class="flex justify-content-center">
                 <button type="submit" class="btn btn-primary">Ajouter</button>
             </div>

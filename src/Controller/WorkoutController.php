@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Data\CreateWorkoutDTO;
+use App\Data\ExerciseDTO;
 use App\Entity\Workout;
 use App\Form\CreateWorkoutType;
 use App\Repository\ExerciseRepository;
@@ -26,12 +27,15 @@ class WorkoutController extends AbstractController
     #[Route('/workouts/create', name: 'create_workout')]
     public function createWorkout(Request $request, EntityManagerInterface $entityManager, ExerciseRepository $exerciseRepository, UserRepository $userRepository): Response
     {
+//        $user = $userRepository->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);
+//        $userExercises = $exerciseRepository->findByEquipment($user->getEquipments());
+//        foreach ($userExercises as $userExercise) {
+//            $createWorkoutDTO->addExerciseDTO(new ExerciseDTO($userExercise));
+//        }
         $createWorkoutDTO = new CreateWorkoutDTO();
         $form = $this->createForm(CreateWorkoutType::class, $createWorkoutDTO);
         $form->handleRequest($request);
-        $user = $userRepository->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);
 
-        dd($exerciseRepository->findByEquipment($user->getEquipments()));
 
         if ($form->isSubmitted() && $form->isValid()) {
             $workout = new Workout();

@@ -17,11 +17,44 @@
                 <span class="input-group-text" id="name">Type</span>
                 {{ form_widget(form.exerciseType) }}
             </div>
-            {{ form_row(form.difficulty) }}
-            {{ form_row(form.muscles) }}
-            {{ form_row(form.equipments) }}
-            {{ form_row(form.bodyZones) }}
-            <div class="flex justify-content-center">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="name">Difficulté</span>
+                {{ form_widget(form.difficulty) }}
+            </div>
+            <h3 class="h3">Muscles</h3>
+            <div class="row ms-3">
+                {% for muscle in form.muscles %}
+                    <div class="form-check col-md-3">
+                        {{ form_widget(muscle, {'attr' : {'class': 'form-check-input'}}) }}
+                        <label class="form-check-label" for="flexCheckDefault">
+                            {{ form_label(muscle) }}
+                        </label>
+                    </div>
+                {% endfor %}
+            </div>
+            <h3 class="h3">Équipements</h3>
+            <div class="row ms-3">
+                {% for equipment in form.equipments %}
+                    <div class="form-check col-md-3">
+                        {{ form_widget(equipment, {'attr' : {'class': 'form-check-input'}}) }}
+                        <label class="form-check-label" for="flexCheckDefault">
+                            {{ form_label(equipment) }}
+                        </label>
+                    </div>
+                {% endfor %}
+            </div>
+            <h3 class="h3">Zone du corps</h3>
+            <div class="row ms-3">
+                {% for bodyZone in form.bodyZones %}
+                    <div class="form-check col-md-3">
+                        {{ form_widget(bodyZone, {'attr' : {'class': 'form-check-input'}}) }}
+                        <label class="form-check-label" for="flexCheckDefault">
+                            {{ form_label(bodyZone) }}
+                        </label>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="flex justify-content-center mt-3">
                 <button type="submit" class="btn btn-primary">Ajouter</button>
             </div>
             {{ form_end(form) }}
