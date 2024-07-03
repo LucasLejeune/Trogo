@@ -55,7 +55,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Workout>
      */
-    #[ORM\ManyToMany(targetEntity: Workout::class, mappedBy: 'users')]
+    #[ORM\OneToMany(targetEntity: Workout::class, mappedBy: 'user')]
     private Collection $workouts;
 
     public function __construct()
@@ -178,7 +178,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Equipment>
      */
-    public function getEquipment(): Collection
+    public function getEquipments(): Collection
     {
         return $this->equipments;
     }
@@ -211,7 +211,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->workouts->contains($workout)) {
             $this->workouts->add($workout);
-            $workout->addUser($this);
+            $workout->setUser($this);
         }
 
         return $this;
@@ -220,7 +220,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeWorkout(Workout $workout): static
     {
         if ($this->workouts->removeElement($workout)) {
-            $workout->removeUser($this);
+            // set the owning side to null (unless already changed)
+            if ($workout->getUser() === $this) {
+                $workout->setUser(null);
+            }
         }
 
         return $this;

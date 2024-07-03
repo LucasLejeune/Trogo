@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un exercice{% endblock %}
+
+{% block body %}
+    <div class="bg-gradient-to-r from-slate-500 to-slate-800 h-dvh">
+        <div class="border border-black rounded mt-3 p-5 position-absolute top-50 start-50 translate-middle w-2/5 bg-gradient-to-r from-slate-900 to-slate-700 text-white">
+            <div class="flex justify-content-center">
+                <h1 class="h1">Ajouter un exercice</h1>
+            </div>
+            {{ form_start(form) }}
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="name">Nom</span>
+                {{ form_widget(form.name) }}
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="name">Type</span>
+                {{ form_widget(form.exerciseType) }}
+            </div>
+            {{ form_row(form.difficulty) }}
+            {{ form_row(form.muscles) }}
+            {{ form_row(form.equipments) }}
+            {{ form_row(form.bodyZones) }}
+            <div class="flex justify-content-center">
+                <button type="submit" class="btn btn-primary">Ajouter</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

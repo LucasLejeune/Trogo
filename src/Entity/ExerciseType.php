@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\WorkoutRepository;
+use App\Repository\ExerciseTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: WorkoutRepository::class)]
-class Workout
+#[ORM\Entity(repositoryClass: ExerciseTypeRepository::class)]
+class ExerciseType
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -21,12 +21,8 @@ class Workout
     /**
      * @var Collection<int, Exercise>
      */
-    #[ORM\ManyToMany(targetEntity: Exercise::class, inversedBy: 'workouts')]
+    #[ORM\OneToMany(targetEntity: Exercise::class, mappedBy: 'exerciseType')]
     private Collection $exercises;
-
-    #[ORM\ManyToOne(inversedBy: 'workouts')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
 
     public function __construct()
     {
@@ -60,7 +56,7 @@ class Workout
     /**
      * @return Collection<int, Exercise>
      */
-    public function getExercise(): Collection
+    public function getExercises(): Collection
     {
         return $this->exercises;
     }
@@ -69,6 +65,7 @@ class Workout
     {
         if (!$this->exercises->contains($exercise)) {
             $this->exercises->add($exercise);
+            $exercise->setExerciseType($this);
         }
 
         return $this;
@@ -76,19 +73,12 @@ class Workout
 
     public function removeExercise(Exercise $exercise): static
     {
-        $this->exercises->removeElement($exercise);
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): static
-    {
-        $this->user = $user;
+        if ($this->exercises->removeElement($exercise)) {
+            // set the owning side to null (unless already changed)
+            if ($exercise->getExerciseType() === $this) {
+                $exercise->setExerciseType(null);
+            }
+        }
 
         return $this;
     }
