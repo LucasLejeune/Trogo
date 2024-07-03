@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription
+{% endblock %}
+
+{% block body %}
+
+
+	<div class="bg-gradient-to-r from-slate-500 to-slate-800 h-dvh">
+		<div class="border border-black rounded mt-3 p-5 position-absolute top-50 start-50 translate-middle w-2/5 bg-gradient-to-r from-slate-900 to-slate-700 text-white">
+			<div class="flex justify-content-center">
+				<h1 class="h1">S'inscrire</h1>
+			</div>
+			{{ form_start(registrationForm) }}
+			{{ form_errors(registrationForm) }}
+
+			{{ form_row(registrationForm.firstName, {'attr': {'class' : 'form-control mb-3'}}) }}
+			{{ form_row(registrationForm.lastName, {'attr': {'class' : 'form-control mb-3'}}) }}
+			{{ form_row(registrationForm.email, {'attr': {'class' : 'form-control mb-3'}}) }}
+			{{ form_row(registrationForm.plainPassword, {'attr': {'class' : 'form-control mb-3'}}) }}
+
+			<div class="flex justify-content-center">
+				<button type="submit" class="btn btn-primary">S'inscrire</button>
+			</div>
+			{{ form_end(registrationForm) }}
+		</div>
+	</div>
+{% endblock %}
