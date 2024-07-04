@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ExerciseController extends AbstractController
 {
-    #[Route('/exercises/{id}', name: 'show_exercise')]
+    #[Route('/exercises/{id}', name: 'show_exercise', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function ShowExercise(Exercise $exercise, ExerciseRepository $exerciseRepository): Response
     {
         $exerciseRepository->findOneBy(['id' => $exercise->getId()]);
@@ -33,6 +33,7 @@ class ExerciseController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $exercise = new Exercise();
             $exercise->setName($addExerciseDTO->getName());
             $exercise->setExerciseType($addExerciseDTO->getExerciseType());
