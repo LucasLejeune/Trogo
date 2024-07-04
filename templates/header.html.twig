@@ -4,6 +4,8 @@
 	<div class="flex place-items-center">
 		<a href="{{ path('app_landing') }}" class="me-2"><img src="logo.png" width="60rem" height="auto" class="rounded-full" alt="logo"></a>
 		{% if app.user %}
+			<a href="{{ path('create_workout') }}" class="underline text-white me-1">Créer un entraînement</a>
+			<a href="{{ path('add_exercise') }}" class="underline text-white me-1">Créer un exercice</a>
 			<a href="{{ path('app_logout') }}" class="underline text-white me-1">Se déconnecter</a>
 		{% else %}
 			<div>
@@ -13,3 +15,5 @@
 		{% endif %}
 	</div>
 </nav>
+
+
