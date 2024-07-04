@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes entraînements{% endblock %}
+
+{% block body %}
+    <div>
+        <h2 class="h2">Mes entrainements</h2>
+        {% for workout in workouts %}
+            <a href="{{ path('show_workout', {'id' : workout.id}) }}">
+                {{ workout.name }}
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

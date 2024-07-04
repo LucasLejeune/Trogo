@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Equipment;
 use App\Entity\User;
+use App\Entity\Workout;
 use App\Repository\EquipmentRepository;
+use App\Repository\WorkoutRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -56,5 +58,15 @@ class UserController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('get_user_equipment', ['id' => $user->getId()]);
+    }
+
+    #[Route('/users/{user}/workouts', name: 'show_user_workout')]
+    public function showUserWorkout(User $user, WorkoutRepository $workoutRepository): Response
+    {
+        $workouts = $workoutRepository->findUserWorkouts($user);
+
+        return $this->render('user/get-workout.html.twig', [
+            'workouts' => $workouts,
+        ]);
     }
 }
