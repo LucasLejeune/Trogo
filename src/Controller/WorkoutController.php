@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Data\CreateWorkoutDTO;
+use App\Data\ExerciseDTO;
+use App\Entity\Exercise;
 use App\Entity\Workout;
 use App\Form\CreateWorkoutType;
 use App\Repository\ExerciseRepository;
 use App\Repository\UserRepository;
+use App\Repository\WorkoutRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,9 +32,7 @@ class WorkoutController extends AbstractController
         $createWorkoutDTO = new CreateWorkoutDTO();
         $form = $this->createForm(CreateWorkoutType::class, $createWorkoutDTO);
         $form->handleRequest($request);
-        $user = $userRepository->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);
 
-        dd($exerciseRepository->findByEquipment($user->getEquipments()));
 
         if ($form->isSubmitted() && $form->isValid()) {
             $workout = new Workout();
@@ -47,6 +48,16 @@ class WorkoutController extends AbstractController
 
         return $this->render('workout/create-workout.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/workouts/{id}', name: 'show_workout')]
+    public function showWorkout(Workout $workout, ExerciseRepository $exerciseRepository): Response
+    {
+        $exercises = $exerciseRepository->findWorkoutExercises($workout);
+        return $this->render('workout/show-workout.html.twig', [
+            'exercises' => $exercises,
+            'workout' => $workout,
         ]);
     }
 }

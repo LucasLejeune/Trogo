@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Data\AddExerciseDTO;
 use App\Entity\Exercise;
 use App\Form\AddExerciseType;
+use App\Repository\ExerciseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,11 +14,13 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ExerciseController extends AbstractController
 {
-    #[Route('/exercise', name: 'app_exercise')]
-    public function index(): Response
+    #[Route('/exercises/{id}', name: 'show_exercise')]
+    public function ShowExercise(Exercise $exercise, ExerciseRepository $exerciseRepository): Response
     {
-        return $this->render('exercise/index.html.twig', [
-            'controller_name' => 'ExerciseController',
+        $exerciseRepository->findOneBy(['id' => $exercise->getId()]);
+
+        return $this->render('exercise/show-exercise.html.twig', [
+            'exercise' => $exercise,
         ]);
     }
 

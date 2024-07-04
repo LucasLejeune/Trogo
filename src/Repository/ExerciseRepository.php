@@ -29,6 +29,20 @@ class ExerciseRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findWorkoutExercises($workout)
+    {
+        $queryBuilder = $this->createQueryBuilder('exercise');
+        return $queryBuilder
+            ->addSelect('workout', 'exercise')
+            ->innerJoin('exercise.workouts', 'workout')
+            ->andWhere(
+                $queryBuilder->expr()->eq('workout.id', ':workoutId')
+            )
+            ->setParameter('workoutId', $workout->getId())
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Exercise[] Returns an array of Exercise objects
     //     */

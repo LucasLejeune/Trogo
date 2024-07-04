@@ -3,7 +3,6 @@
 namespace App\Data;
 
 use App\Entity\Exercise;
-use App\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
@@ -35,8 +34,19 @@ class CreateWorkoutDTO
         return $this->exercises;
     }
 
-    public function setExercises(Collection $exercises): void
+    public function addExercise(Exercise $exercise): static
     {
-        $this->exercises = $exercises;
+        if (!$this->exercises->contains($exercise)) {
+            $this->exercises->add($exercise);
+        }
+
+        return $this;
+    }
+
+    public function removeExercise(Exercise $exercise): static
+    {
+        $this->exercises->removeElement($exercise);
+
+        return $this;
     }
 }
