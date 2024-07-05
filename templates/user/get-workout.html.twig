@@ -5,10 +5,21 @@
 {% block body %}
     <div>
         <h2 class="h2">Mes entrainements</h2>
-        {% for workout in workouts %}
-            <a href="{{ path('show_workout', {'id' : workout.id}) }}">
-                {{ workout.name }}
-            </a>
-        {% endfor %}
+        <div class="row">
+            {% for workout in workouts %}
+                <div class="card col-md-3 mb-3 ms-3" style="width: 18rem;">
+                    <img src="/images/placeholder.png" class="card-img-top">
+                    <div class="card-body">
+                        <hr>
+                        <h5 class="card-title h5">
+                            <a href="{{ path('show_workout', {'id' : workout.id}) }}">
+                                {{ workout.name }}
+                            </a>
+                        </h5>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
