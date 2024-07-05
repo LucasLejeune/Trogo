@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Exercice{% endblock %}
+
+{% block body %}
+    <div>
+        <h1 class="h1">Exercices {{ exercise.name }}</h1>
+        {% if exercise.equipment | length > 0 %}
+            <h3 class="h3">Équipement</h3>
+            <div class="row">
+                {% for equipment in exercise.equipment %}
+                    <div class="card col-md-3 mb-3 ms-3" style="width: 18rem;">
+                        <img src="/images/placeholder.png" class="card-img-top">
+                        <div class="card-body">
+                            <hr>
+                            <h5 class="card-title h5">
+                                {{ equipment.name }}
+                            </h5>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <h4 class="h4">Pas d'équipement nécessaire</h4>
+        {% endif %}
+        <h3 class="h3">Zone du corps</h3>
+        <div class="row">
+            {% for bodyZone in exercise.bodyZone %}
+                <div class="card col-md-3 mb-3 ms-3" style="width: 18rem;">
+                    <img src="/images/placeholder.png" class="card-img-top">
+                    <div class="card-body">
+                        <hr>
+                        <h5 class="card-title h5">
+                            {{ bodyZone.name }}
+                        </h5>
+                    </div>
+                </div>
+                <br>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

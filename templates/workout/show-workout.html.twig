@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Entrainement{% endblock %}
+
+{% block body %}
+    <div>
+        <h1 class="h1">Exercices de l'entrainement {{ workout.name }}</h1>
+        <div class="row">
+            {% for exercise in exercises %}
+                <div class="card col-md-3 mb-3 ms-3" style="width: 18rem;">
+                    <img src="/images/placeholder.png" class="card-img-top">
+                    <div class="card-body">
+                        <hr>
+                        <h5 class="card-title h5">
+                            <a href="{{ path("show_exercise", {'id': exercise.id}) }}">
+                                {{ exercise.name }}
+                            </a>
+                        </h5>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
