@@ -20,12 +20,13 @@
 </head>
 <body class="bg-gradient-to-r from-slate-500 to-slate-800">
 <div class="flex flex-col h-screen">
-{% block header %}
-    {% include 'header.html.twig' %}
-{% endblock %}
-{#    <div class="flex-grow">#}
-    {% block body %}{% endblock %}
-{#    </div>#}
+    {# TODO: cacher la navbar si login/register ? #}
+    {% block header %}
+        {% include 'header.html.twig' %}
+    {% endblock %}
+    <div class="m-2">
+        {% block body %}{% endblock %}
+    </div>
 </div>
 </body>
 </html>

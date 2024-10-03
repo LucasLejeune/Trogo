@@ -3,28 +3,37 @@
 {% block title %}Créer un entraînement{% endblock %}
 
 {% block body %}
-    <div class="bg-gradient-to-r from-slate-500 to-slate-800 h-dvh">
-        <div class="border border-black rounded mt-3 p-5 position-absolute top-50 start-50 translate-middle w-2/5 bg-gradient-to-r from-slate-900 to-slate-700 text-white">
-            <div class="flex justify-content-center">
-                <h1 class="h1">Créer un entrainement</h1>
+    <div class="h-full flex items-center justify-center">
+        <div class="border border-black rounded mt-3 p-5 translate-middle w-2/5 bg-gradient-to-r from-slate-900 to-slate-700 text-white">
+            <div class="flex justify-center mb-3">
+                <p class="text-4xl">Créer un entrainement</p>
             </div>
             {{ form_start(form) }}
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="name">Nom</span>
-                {{ form_widget(form.name) }}
-            </div>
-            <h3 class="h3">Sélectionner un ou plusieurs exercices</h3>
-            {% for exercise in form.exercises %}
-                <div class="form-check">
-                    {{ form_widget(exercise, {'attr' : {'class': 'form-check-input'}}) }}
-                    <label class="form-check-label" for="flexCheckDefault">
-                        {{ form_label(exercise) }}
-                    </label>
+            <div class="flex justify-center my-3">
+                <div class="mb-3 w-9/12">
+                    <label for="name">Nom</label>
+                    <br>
+                    {{ form_widget(form.name, {'attr': {'class' : 'rounded w-full'}}) }}
                 </div>
-
-            {% endfor %}
-            <div class="flex justify-content-center">
-                <button type="submit" class="btn btn-primary">Ajouter</button>
+            </div>
+            <hr>
+            <div class="my-3">
+                <div class="flex items-center justify-center mb-3">
+                    <p class="text-2xl">Sélectionner un ou plusieurs exercices</p>
+                </div>
+                <div class="flex justify-center">
+                    <div class="grid grid-cols-3 gap-4">
+                        {% for exercise in form.exercises %}
+                            <div class="flex items-center">
+                                {{ form_widget(exercise, {'attr' : {'class': 'mr-1'}}) }}
+                                {{ form_label(exercise) }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-center mt-3">
+                <button type="submit" class="border-2 p-1 rounded">Ajouter</button>
             </div>
             {{ form_end(form) }}
         </div>
