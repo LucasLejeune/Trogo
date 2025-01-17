@@ -60,7 +60,7 @@ class UserController extends AbstractController
         return $this->redirectToRoute('get_user_equipment', ['id' => $user->getId()]);
     }
 
-    #[Route('/users/{user}/workouts', name: 'show_user_workout')]
+    #[Route('/users/{id}/workouts', name: 'show_user_workout')]
     public function showUserWorkout(User $user, WorkoutRepository $workoutRepository): Response
     {
         $workouts = $workoutRepository->findUserWorkouts($user);

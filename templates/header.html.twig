@@ -1,21 +1,66 @@
 {# <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>"> #}
 
 <nav id="headerAll" class="nav-test h-16 bg-gray-600 sticky top-0 z-50">
-	<div class="flex justify-content-between h-100 items-center">
-		<a href="{{ path('app_landing') }}" class="me-2"><img src="/images/logo2.png" width="60rem" height="auto" class="rounded-full" alt="logo"></a>	
-		{% if app.user %}
-			<a href="{{ path('create_workout') }}" class="underline text-white mr-1">Créer un entraînement</a>
-			<a href="{{ path('add_exercise') }}" class="underline text-white mr-1">Créer un exercice</a>
-			<a href="{{ path('app_logout') }}" class="underline text-white mr-1">Se déconnecter</a>
-		{% else %}
-			<div>
-				<a href="{{ path('app_login') }}" class="underline text-white  mr-1">Se connecter</a>
-				<a href="{{ path('app_register') }}" class="underline text-white mr-1">S'inscrire</a>
-			</div>
-		{% endif %}
-	</div>
-  </nav>
+    <div class="flex h-100 justify-between items-center px-1">
+        <div class="flex items-center">
+            <a href="{{ path('app_landing') }}" class="me-2"><img src="/images/logo2.png" width="60rem"
+                                                                  height="auto"
+                                                                  class="rounded-full" alt="logo"></a>
+            {% if app.user %}
+                <a href="{{ path('create_workout') }}" class="underline text-white mr-1">Créer un entraînement</a>
+                <a href="{{ path('add_exercise') }}" class="underline text-white mr-1">Créer un exercice</a>
+            {% endif %}
+        </div>
+        <div class="flex items-center">
+            <div class="relative">
+                <button id="dropdownButton"
+                        class="text-white px-4 py-2 rounded focus:outline-none focus:ring focus:ring-white">
+                    <i class="fa-solid fa-user"></i>
+                    <span>Profil</span>
 
+                </button>
+
+                <div id="dropdownMenu"
+                     class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg">
+                    {% if app.user %}
+                        <a href="{{ path('get_user_equipment', {'id': app.user.id}) }}"
+                           class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mes
+                            équipements</a>
+                        <hr>
+                        <a href="{{ path('show_user_workout', {'id': app.user.id}) }}"
+                           class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mes
+                            entrainements</a>
+                        <hr>
+                        <a href="{{ path('app_logout') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Se
+                            déconnecter</a>
+                    {% else %}
+                        <a href="{{ path('app_login') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Se
+                            connecter</a>
+                        <hr>
+                        <a href="{{ path('app_register') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">S'inscrire</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script>
+    // Dropdown functionality
+    const dropdownButton = document.getElementById('dropdownButton');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+
+    dropdownButton.addEventListener('click', () => {
+        dropdownMenu.classList.toggle('hidden');
+    });
+
+    // Close the dropdown if clicked outside
+    window.addEventListener('click', (e) => {
+        if (!dropdownButton.contains(e.target) && !dropdownMenu.contains(e.target)) {
+            dropdownMenu.classList.add('hidden');
+        }
+    });
+</script>
 <style>
 	.nav-test{
 		border-bottom: solid;
