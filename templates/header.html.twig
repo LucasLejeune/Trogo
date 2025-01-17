@@ -1,6 +1,6 @@
 {# <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>"> #}
 
-<nav class="h-16 bg-gray-600 sticky top-0 z-50">
+<nav id="headerAll" class="nav-test h-16 bg-gray-600 sticky top-0 z-50">
 	<div class="flex justify-content-between h-100 items-center">
 		<a href="{{ path('app_landing') }}" class="me-2"><img src="/images/logo2.png" width="60rem" height="auto" class="rounded-full" alt="logo"></a>	
 		{% if app.user %}
@@ -15,3 +15,10 @@
 		{% endif %}
 	</div>
   </nav>
+
+<style>
+	.nav-test{
+		border-bottom: solid;
+		border-bottom-color: white;
+	}
+</style>

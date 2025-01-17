@@ -12,10 +12,12 @@
     </title>
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     {% endblock %}
 
     {% block javascripts %}
         {{ encore_entry_script_tags('app') }}
+        <script src="{{ asset('js/script.js') }}"></script>
     {% endblock %}
 </head>
 <body class="bg-gradient-to-r from-slate-500 to-slate-800">
