@@ -4,8 +4,21 @@
 {% endblock %}
 
 {% block body %}
-    <div class="grid grid-cols-1 place-items-center h-[80vh]">
-        <div class="grid grid-cols-1 place-items-center my-auto">
+
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        <p>Chargement...</p>
+    </div>
+
+    <div id="landing-page">
+        <div id="landing-content">
+            <img src="{{ asset('images/Newlogo.png') }}" alt="Logo" id="landing-logo">
+        </div>
+    </div>
+    
+    <div id="homepage" class="grid grid-cols-1 place-items-center h-full">
+        <div class="grid grid-cols-1 place-items-center">
+
             <h1 class="title text-8xl text-white mb-3">Trogo</h1>
             <h3 class="text-white">
                 <a href="{{ path('app_home') }}" class="underline">Accueil</a>
