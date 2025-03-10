@@ -4,5 +4,22 @@
 {% endblock %}
 
 {% block body %}
-	<div class="bg-gradient-to-r from-slate-500 to-slate-800 h-dvh"></div>
+	<div class="bg-gradient-to-r from-slate-500 to-slate-800 h-dvh">
+		{% if user %}
+			<h2>Vos entrainements favoris</h2>
+			{% for workout in user.workouts %}
+				<a href="{{ path("show_workout", {'id': workout.id}) }}">
+					<div class="border-2 rounded bg-gray-600 m-3" style="width: 12rem;">
+						<div class="flex items-center justify-center">
+							<img src="/images/placeholder.png" alt="equipment-image">
+						</div>
+						<hr>
+						<div class="flex items-center justify-center">
+							{{ workout.name }}
+						</div>
+					</div>
+				</a>
+			{% endfor %}
+		{% endif %}
+	</div>
 {% endblock %}

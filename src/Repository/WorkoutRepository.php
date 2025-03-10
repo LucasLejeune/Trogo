@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Equipment;
 use App\Entity\User;
 use App\Entity\Workout;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,15 +19,27 @@ class WorkoutRepository extends ServiceEntityRepository
         parent::__construct($registry, Workout::class);
     }
 
-    public function findUserWorkouts(User $user)
+    public function findUserFavorites(User $user)
     {
         $queryBuilder = $this->createQueryBuilder('workout');
 
         return $queryBuilder
-            ->addSelect('workout')
-            ->innerJoin('workout.user', 'user')
-            ->andWhere($queryBuilder->expr()->eq('user.id', ':userId'))
-            ->setParameter('userId', $user->getId())
+            ->innerJoin('workout.users', 'users')
+            ->andWhere($queryBuilder->expr()->eq('users', ':user'))
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param Collection<Equipment> $equipments
+     * @return Workout[]
+     */
+    public function findByEquipment(Collection $equipments): array
+    {
+        $queryBuilder = $this->createQueryBuilder('workout');
+
+        return $queryBuilder
             ->getQuery()
             ->getResult();
     }
