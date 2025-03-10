@@ -1,7 +1,10 @@
 window.addEventListener('load', function () {
 
     const header = this.document.getElementById('headerAll');
-    header.style.display = "none";
+    if (window.location.pathname == "/") {
+        header.style.display = "none";
+        console.log("Oui");
+    }
 
     setTimeout(function () {
         const loadingScreen = document.getElementById('loading-screen');
@@ -22,3 +25,4 @@ window.addEventListener('load', function () {
         }, 500)
     });
 });
+
