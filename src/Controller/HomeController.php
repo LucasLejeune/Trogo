@@ -2,12 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Exercise;
 use App\Entity\User;
+use App\Entity\Workout;
 use App\Repository\WorkoutRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class HomeController extends AbstractController
 {
@@ -21,12 +26,15 @@ class HomeController extends AbstractController
     public function home(WorkoutRepository $workoutRepository): Response
     {
         $user =  $this->getUser();
+        $workouts = new ArrayCollection($workoutRepository->findAllWithoutEquipment());
         if ($user instanceof User) {
-            $workouts = $workoutRepository->findByEquipment($user->getEquipments());
-            dd($workouts);
+            $userWorkouts = $workoutRepository->getWorkoutsByUserEquipment($user->getId());
+            foreach ($userWorkouts as $workout) {
+                $workouts->add($workout);
+            }
         }
         return $this->render('home/home.html.twig', [
-            'user' => $user,
+            'workouts' => $workouts,
         ]);
     }
 }
