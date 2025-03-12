@@ -63,7 +63,7 @@ class UserController extends AbstractController
     #[Route('/users/{id}/workouts', name: 'show_user_workout')]
     public function showUserWorkout(User $user, WorkoutRepository $workoutRepository): Response
     {
-        $workouts = $workoutRepository->findUserWorkouts($user);
+        $workouts = $workoutRepository->findUserFavorites($user);
 
         return $this->render('user/get-workout.html.twig', [
             'workouts' => $workouts,
