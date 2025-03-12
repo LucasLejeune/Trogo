@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="h-full flex items-center justify-center">
+    <div class="h-[90vh] flex items-center justify-center">
         {% if app.user %}
         <div class="mb-3 text-white text-3xl">
             Vous êtes connectés en tant que
@@ -12,45 +12,57 @@
             <a href="{{ path('app_logout') }}" class="underline">Se déconnecter</a>
         </div>
         {% else %}
-        <div class="border border-black rounded mt-3 p-5 translate-middle w-2/5 bg-gradient-to-r from-slate-900 to-slate-700 text-white">
-            <form method="post">
+        <div class="flex justify-center items-center p-5 translate-middle w-[975px] h-[500px] bg-primary text-secondary">
+            <form class="flex flex-col" method="post">
                 {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                 {% endif %}
                 <div class="flex justify-center">
-                    <h1 class="mb-3 text-4xl">CONNEXION</h1>
+                    <img class="w-24 h-auto" src="{{ asset("images/LogoS-1.png") }}">
                 </div>
-                <div class="flex justify-center">
+                <div class="divss">
+                    <h1 class="mb-3 text-2xl">Connexion :</h1>
+                </div>
+                <div class="divss">
                     <div class="mb-3 w-9/12">
-                        <label for="username">Email</label>
-                        <br>
                         <input type="email" value="{{ last_username }}" name="_username" id="username"
-                               class="rounded w-full"
-                               autocomplete="email" required autofocus>
+                            class=":focus w-full text-white border-2 h-10 bg-primary border-secondary"
+                            autocomplete="email" placeholder="Email" required autofocus>
                     </div>
                 </div>
-                <div class="flex justify-center">
+                <div class="divss">
                     <div class="mb-3 w-9/12">
-                        <label for="password">Mot de passe</label>
-                        <br>
-                        <input type="password" name="_password" id="password" class="rounded w-full"
-                               autocomplete="current-password" required>
+                        <input type="password" name="_password" id="password" 
+                            class="w-full text-white border-2 h-10 bg-primary border-secondary"
+                            autocomplete="current-password" placeholder="Mot de passe" required>
                     </div>
                 </div>
 
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                <div class="flex items-center justify-center text-sm">
-                    <p>Vous n'avez pas de compte ?</p> &nbsp;
-                    <a href="{{ path('app_register') }}" class="underline">S'inscrire</a>
-                </div>
-                <div class="flex space-x-4 justify-center items-center mt-3">
-                    <a class="underline" href="">Mot de passe oublié ?</a>
-                    <button class="border-2 rounded p-1" type="submit">
+                <div class="flex justify-center items-center">
+                    <button class="border-2 border-secondary p-2" type="submit">
                         Se connecter
                     </button>
+                </div>
+                <div class="flex flex-col items-center mt-3">
+                    <a class="underline" href="">Mot de passe oublié ?</a>
+                    <div class="flex items-center justify-center text-sm">
+                        <p>Vous n'avez pas de compte ?</p> &nbsp;
+                    <a href="{{ path('app_register') }}" class="underline font-bold">S'inscrire</a>
+                </div>
                 </div>
                 {% endif %}
             </form>
         </div>
     </div>
+<style>
+.divss{
+    display: flex;
+    justify-content: center;
+    min-width: 500px;
+}
+textarea:focus, input:focus{
+    outline: none;
+}
+</style>
 {% endblock %}
