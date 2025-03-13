@@ -70,6 +70,8 @@ html {
 
 #landing-content {
     text-align: center;
+    overflow: hidden;
+
 }
 
 #landing-logo {

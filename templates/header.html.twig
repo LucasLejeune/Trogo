@@ -12,13 +12,18 @@
         </div>
         <div class="flex items-center">
             <div class="relative">
+            {% if app.user %}
                 <button id="dropdownButton"
                         class="text-primary px-4 py-2 rounded focus:outline-none focus:ring focus:ring-primary">
                     <i class="fa-solid fa-user"></i>
                     <span>Profil</span>
 
                 </button>
-
+            {% endif %}
+                <button id="dropdownButton"
+                        class="border-2 border-secondary bg-primary p-2 text-base cursor-pointer text-secondary transition-transform duration-300 ease-in-out hover:scale-105">
+                    <span>Connexion</span>
+                </button>
                 <div id="dropdownMenu"
                      class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg">
                     {% if app.user %}
