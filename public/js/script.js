@@ -15,7 +15,7 @@ window.addEventListener('load', function () {
         });
 
         document.getElementById('landing-page').style.display = 'flex';
-    }, 500);
+    }, 300);
 
     document.getElementById('landing-page').addEventListener('click', function () {
         this.classList.add('slide-up');

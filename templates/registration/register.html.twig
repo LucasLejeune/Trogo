@@ -5,51 +5,42 @@
 
 {% block body %}
 
-    <div class="h-full flex items-center justify-center">
-        <div class="border border-black rounded mt-3 p-5 translate-middle w-2/5 bg-gradient-to-r from-slate-900 to-slate-700 text-white">
-            <div class="flex justify-center">
+    <div class="h-[90vh] flex items-center justify-center">
+        <div class="flex flex-col justify-center items-center p-5 translate-middle max-md:h-full max-md:w-full lg:min-w-[975px] lg:min-h-[500px] bg-primary text-secondary">
+            <div class="flex flex-col items-center">
+                <img src="{{ asset("images/T.png") }}" class="h-full w-8 mb-3">
                 <h1 class="mb-3 text-4xl">INSCRIPTION</h1>
             </div>
             {{ form_start(registrationForm) }}
-            <div class="flex justify-center">
+            <div class="divss">
                 <div class="mb-3 w-9/12">
-                    <label for="firstName">Prénom</label>
-                    <br>
-                    {{ form_widget(registrationForm.firstName, {'attr': {'class' : 'rounded w-full'}}) }}
+                    {{ form_widget(registrationForm.firstName, {'attr': {'class' : 'w-full text-white border-2 h-10 bg-primary border-secondary'}}) }}
                 </div>
             </div>
             <div class="flex justify-center">
                 <div class="mb-3 w-9/12">
-                    <label for="lastName">Nom</label>
-                    <br>
-                    {{ form_widget(registrationForm.lastName, {'attr': {'class' : 'rounded w-full'}}) }}
+                    {{ form_widget(registrationForm.lastName, {'attr': {'class' : 'w-full text-white border-2 h-10 bg-primary border-secondary'}}) }}
                 </div>
             </div>
-            <div class="flex justify-center">
+            <div class="divss">
                 <div class="mb-3 w-9/12">
-                    <label for="email">Email</label>
-                    <br>
-                    {{ form_widget(registrationForm.email, {'attr': {'class' : 'rounded w-full'}}) }}
+                    {{ form_widget(registrationForm.email, {'attr': {'class' : 'w-full text-white border-2 h-10 bg-primary border-secondary'}}) }}
                 </div>
             </div>
-            <div class="flex justify-center">
+            <div class="divss">
                 <div class="mb-3 w-9/12">
-                    <label for="plainPassword">Mot de passe</label>
-                    <br>
-                    {{ form_widget(registrationForm.plainPassword, {'attr': {'class' : 'rounded w-full'}}) }}
+                    {{ form_widget(registrationForm.plainPassword, {'attr': {'class' : 'w-full text-white border-2 h-10 bg-primary border-secondary'}}) }}
                 </div>
             </div>
-            <div class="flex justify-center">
+            <div class="divss">
                 <div class="mb-3 w-9/12">
-                    <label for="confirm-password">Confirmer le mot de passe</label>
-                    <br>
-                    <input type="password" name="_confirm_password" id="confirm-password" class="rounded w-full"
-                           autocomplete="current-password" required>
+                    <input type="password" name="_confirm_password" id="confirm-password" class="w-full text-white border-2 h-10 bg-primary border-secondary"
+                           autocomplete="current-password" placeholder="Confirmer le Mot de passe" required>
                 </div>
             </div>
 
-            <div class="flex justify-center">
-                <button type="submit" class="border-2 rounded p-1">S'inscrire</button>
+            <div class="divss">
+                <button type="submit" class="border-2 border-secondary p-2">S'inscrire</button>
             </div>
             {{ form_errors(registrationForm) }}
             {{ form_end(registrationForm) }}
@@ -59,4 +50,14 @@
         </div>
         </div>
     </div>
+<style>
+.divss{
+    display: flex;
+    justify-content: center;
+    min-width: 500px;
+}
+textarea:focus, input:focus{
+    outline: none;
+}
+</style>
 {% endblock %}
