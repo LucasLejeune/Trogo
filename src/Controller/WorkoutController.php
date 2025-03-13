@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Data\CreateWorkoutDTO;
 use App\Data\ExerciseDTO;
 use App\Entity\Exercise;
+use App\Entity\UserWorkout;
 use App\Entity\Workout;
 use App\Form\CreateWorkoutType;
 use App\Repository\ExerciseRepository;
@@ -37,11 +38,16 @@ class WorkoutController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $workout = new Workout();
             $workout->setName($createWorkoutDTO->getName());
-            $workout->setUser($this->getUser());
+            $workout->setCreatedBy($this->getUser());
             foreach ($createWorkoutDTO->getExercises() as $exercise) {
                 $workout->addExercise($exercise);
             }
+            $userWorkout = new UserWorkout();
+            $userWorkout->setWorkout($workout);
+            $user = $this->getUser();
+            $userWorkout->setUser($this->getUser($user));
             $entityManager->persist($workout);
+            $entityManager->persist($userWorkout);
             $entityManager->flush();
             return $this->redirectToRoute('create_workout');
         }

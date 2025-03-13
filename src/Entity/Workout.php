@@ -24,13 +24,20 @@ class Workout
     #[ORM\ManyToMany(targetEntity: Exercise::class, inversedBy: 'workouts')]
     private Collection $exercises;
 
-    #[ORM\ManyToOne(inversedBy: 'workouts')]
+    #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
+    private ?User $createdBy = null;
+
+    /**
+     * @var Collection<int, User>
+     */
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'workouts')]
+    private Collection $users;
 
     public function __construct()
     {
         $this->exercises = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -60,7 +67,7 @@ class Workout
     /**
      * @return Collection<int, Exercise>
      */
-    public function getExercise(): Collection
+    public function getExercises(): Collection
     {
         return $this->exercises;
     }
@@ -81,15 +88,56 @@ class Workout
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getCreatedBy(): ?User
     {
-        return $this->user;
+        return $this->createdBy;
     }
 
-    public function setUser(?User $user): static
+    public function setCreatedBy(?User $createdBy): static
     {
-        $this->user = $user;
+        $this->createdBy = $createdBy;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): static
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addWorkout($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): static
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeWorkout($this);
+        }
+
+        return $this;
+    }
+
+    public function getRequiredEquipment(): Collection
+    {
+        $requiredEquipment = new ArrayCollection();
+        foreach ($this->getExercises() as $exercise) {
+            foreach ($exercise->getEquipment() as $equipment) {
+                $filteredRequiredEquipment = $requiredEquipment->filter(fn(Equipment $requiredEquipment) => $requiredEquipment->getId() === $equipment->getId());
+                if ($filteredRequiredEquipment->isEmpty()) {
+                    $requiredEquipment->add($equipment);
+                }
+            }
+        }
+        return $requiredEquipment;
     }
 }
