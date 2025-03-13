@@ -5,7 +5,18 @@ module.exports = {
         "./templates/**/*.html.twig",
     ],
     theme: {
-        extend: {},
+        extend: {
+            fontFamily: {
+                racing: ["'Racing Sans One'", "cursive"],
+                dm: ["'DM Sans'", "sans-serif"],
+                poppins: ["'Poppins'", "sans-serif"],
+                zen: ["'Zen Antique Soft'", "serif"],
+            },
+            colors: {
+                primary: "#16182F",
+                secondary: "#fff6a2",
+            },
+        },
     },
     plugins: [],
 }

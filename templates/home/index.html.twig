@@ -4,20 +4,32 @@
 {% endblock %}
 
 {% block body %}
-    <div class="grid grid-cols-1 place-items-center h-full">
+
+    <div id="loading-screen">
+        {# <div class="spinner"></div>
+        <p>Chargement...</p> #}
+    </div>
+
+    <div id="landing-page">
+        <div id="landing-content" class="flex justify-between w-full px-24 items-center">
+            <img src="{{ asset('images/spbg1.png') }}" class="relative h-full lg:w-[300px]">
+            <img src="{{ asset('images/Newlogo.png') }}" alt="Logo" id="landing-logo">
+            <img src="{{ asset('images/spbg2.png') }}" class="relative h-full lg:w-[300px]">
+        </div>
+    </div>
+    
+    <div id="homepage" class="grid grid-cols-1 place-items-center h-full">
         <div class="grid grid-cols-1 place-items-center">
-            <h1 class="title text-8xl text-white mb-3">Trogo</h1>
+            <h2 class="text-2xl font-dm text-secondary mb-1">Trogo</h2>
+            <h1 class="text-6xl font-dm text-secondary mb-3">Your Personnal Helper !</h1>
             <h3 class="text-white">
-                <a href="{{ path('app_home') }}" class="underline">Accueil</a>
+                <a href="{{ path('app_home') }}">Comment faire?</a>
                 -
-                <a href="{{ path('app_profile') }}" class="underline">Profil</a>
+                <a href="{{ path('app_profile') }}">Connexion / Inscription ?</a>
             </h3>
         </div>
     </div>
 
     <style>
-        .title {
-            font-family: 'Nothing You Could Do';
-        }
     </style>
 {% endblock %}

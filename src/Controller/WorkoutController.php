@@ -26,7 +26,7 @@ class WorkoutController extends AbstractController
         ]);
     }
 
-    #[Route('/workouts/create', name: 'create_workout')]
+    #[Route('/workouts/add', name: 'create_workout')]
     public function createWorkout(Request $request, EntityManagerInterface $entityManager, ExerciseRepository $exerciseRepository, UserRepository $userRepository): Response
     {
         $createWorkoutDTO = new CreateWorkoutDTO();
