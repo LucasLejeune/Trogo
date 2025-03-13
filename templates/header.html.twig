@@ -1,14 +1,13 @@
 {# <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>"> #}
 
 <nav id="headerAll" class="h-16 bg-white sticky top-0 z-50">
-    <div class="flex h-100 justify-between items-center px-5">
+    <div class="flex h-full justify-between items-center px-5">
         <div class="flex items-center">
-            <a href="{{ path('app_landing') }}" class="me-2"><img src="{{ asset('images/HeaderLogo.png') }}" width="60rem"
-                                                                  height="auto"
-                                                                  class="" alt="logo"></a>
+            <a href="{{ path('app_landing') }}" class="me-2"><img src="{{ asset('images/HeaderLogo.png') }}" class="h-fit w-10" alt="logo"></a>
             {% if app.user %}
-                <a href="{{ path('create_workout') }}" class="underline text-primary mr-1">Créer un entraînement</a>
-                <a href="{{ path('add_exercise') }}" class="underline text-primary mr-1">Créer un exercice</a>
+            <div>
+                <h2>Salut {{ app.user.firstName }} !</h2>
+            </div>
             {% endif %}
         </div>
         <div class="flex items-center">
