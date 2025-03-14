@@ -42,12 +42,7 @@ class WorkoutController extends AbstractController
             foreach ($createWorkoutDTO->getExercises() as $exercise) {
                 $workout->addExercise($exercise);
             }
-            $userWorkout = new UserWorkout();
-            $userWorkout->setWorkout($workout);
-            $user = $this->getUser();
-            $userWorkout->setUser($this->getUser($user));
             $entityManager->persist($workout);
-            $entityManager->persist($userWorkout);
             $entityManager->flush();
             return $this->redirectToRoute('create_workout');
         }

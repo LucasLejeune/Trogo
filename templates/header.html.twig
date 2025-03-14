@@ -5,10 +5,13 @@
         <div class="flex items-center">
             <a href="{{ path('app_landing') }}" class="me-2"><img src="{{ asset('images/HeaderLogo.png') }}" class="h-fit w-10" alt="logo"></a>
             {% if app.user %}
-            <div>
+            <div class="me-2">
                 <h2>Salut {{ app.user.firstName }} !</h2>
             </div>
             {% endif %}
+            <div>
+                <h2><a class="underline" href="{{path('app_home')}}">Accueil</a></h2>
+            </div>
         </div>
         <div class="flex items-center">
             <div class="relative">
@@ -19,11 +22,11 @@
                     <span>Profil</span>
 
                 </button>
-            {% endif %}
-                <button id="dropdownButton"
-                        class="border-2 border-secondary bg-primary p-2 text-base cursor-pointer text-secondary transition-transform duration-300 ease-in-out hover:scale-105">
+            {% else %}
+                <button id="dropdownButton" class="border-2 border-secondary bg-primary p-2 text-base cursor-pointer text-secondary transition-transform duration-300 ease-in-out hover:scale-105">
                     <span>Connexion</span>
                 </button>
+            {% endif %}
                 <div id="dropdownMenu"
                      class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg">
                     {% if app.user %}

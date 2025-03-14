@@ -3,8 +3,8 @@
 {% block title %}Créer un exercice{% endblock %}
 
 {% block body %}
-    <div class="h-full flex items-center justify-center">
-        <div class="border border-black rounded mt-3 p-5 translate-middle w-2/5 bg-gradient-to-r from-slate-900 to-slate-700 text-white">
+    <div class="h-[90vh] bg-darkblue p-5 text-secondary overflow-auto flex justify-center">
+        <div class="w-[40%] bg-primary p-5">
             <div class="flex justify-center mb-3">
                 <p class="text-4xl">Ajouter un exercice</p>
             </div>
@@ -72,7 +72,7 @@
                     <p class="text-2xl">Zone du corps</p>
                 </div>
                 <div class="flex justify-center">
-                    <div class="grid grid-cols-4 gap-4">
+                    <div class="grid grid-cols-3 gap-4">
                         {% for bodyZone in form.bodyZones %}
                             <div class="form-check col-md-3">
                                 <div class="flex items-center">
