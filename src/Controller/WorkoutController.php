@@ -15,6 +15,7 @@ use App\Repository\UserRepository;
 use App\Repository\WorkoutRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -57,6 +58,7 @@ class WorkoutController extends AbstractController
     #[Route('/workouts/{id}', name: 'show_workout')]
     public function showWorkout(Workout $workout, ExerciseRepository $exerciseRepository, MuscleRepository $muscleRepository, EquipmentRepository $equipmentRepository): Response
     {
+        $user = $this->getUser();
         $muscles = $muscleRepository->findAllByWorkout($workout);
         $exercises = $exerciseRepository->findWorkoutExercises($workout);
         $equipments = $equipmentRepository->findAllByWorkout($workout);
@@ -65,7 +67,34 @@ class WorkoutController extends AbstractController
             'exercises' => $exercises,
             'workout' => $workout,
             'muscles' => $muscles,
-            'equipments' => $equipments
+            'equipments' => $equipments,
+            'isFavorite' => $workout->getUsers()->contains($user),
         ]);
+    }
+
+    #[Route('/workouts/{id}/favorite', name: 'manage_workout_favorite')]
+    public function manageWorkoutFavoriteState(Workout $workout, Request $request, EntityManagerInterface $em): JsonResponse
+    {
+        $json = $request->getContent();
+        $data = json_decode($json, true);
+        $isFavorited = $data['favorited'] ?? null;
+
+        $user = $this->getUser();
+        $workoutUsers = $workout->getUsers();
+        $isEdit = false;
+
+        if ($isFavorited && !$workoutUsers->contains($user)) {
+            $workout->addUser($user);
+            $isEdit = true;
+        } elseif (!$isFavorited && $workoutUsers->contains($user)) {
+            $workout->removeUser($user);
+            $isEdit = true;
+        }
+        if ($isEdit) {
+            $em->persist($workout);
+            $em->flush();
+        }
+
+        return new JsonResponse(['success' => true, 'favorited' => !$isFavorited, 'edit' => $isEdit]);
     }
 }
