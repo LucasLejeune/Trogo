@@ -8,7 +8,9 @@ use App\Entity\Exercise;
 use App\Entity\UserWorkout;
 use App\Entity\Workout;
 use App\Form\CreateWorkoutType;
+use App\Repository\EquipmentRepository;
 use App\Repository\ExerciseRepository;
+use App\Repository\MuscleRepository;
 use App\Repository\UserRepository;
 use App\Repository\WorkoutRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -53,12 +55,17 @@ class WorkoutController extends AbstractController
     }
 
     #[Route('/workouts/{id}', name: 'show_workout')]
-    public function showWorkout(Workout $workout, ExerciseRepository $exerciseRepository): Response
+    public function showWorkout(Workout $workout, ExerciseRepository $exerciseRepository, MuscleRepository $muscleRepository, EquipmentRepository $equipmentRepository): Response
     {
+        $muscles = $muscleRepository->findAllByWorkout($workout);
         $exercises = $exerciseRepository->findWorkoutExercises($workout);
+        $equipments = $equipmentRepository->findAllByWorkout($workout);
+
         return $this->render('workout/show-workout.html.twig', [
             'exercises' => $exercises,
             'workout' => $workout,
+            'muscles' => $muscles,
+            'equipments' => $equipments
         ]);
     }
 }

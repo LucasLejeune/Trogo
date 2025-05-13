@@ -10,23 +10,56 @@
         <div class="flex justify-center">
             <h1 class="text-5xl text-secondary">Entrainement : <span class="text-white">{{ workout.name }}</span></h1>
         </div>
-        <div>
+        <div class="bg-darkblue h-screen">
             <h2 class="text-3xl text-secondary">Exercices :</h2>
-        </div>
-        <div class="flex bg-darkblue h-screen">
-            {% for exercise in exercises %}
-                <a href="{{ path("show_exercise", {'id': exercise.id}) }}">
-                    <div class="bg-primary m-3 shadow-lg text-secondary w-[12rem] transition-transform duration-300 ease-in-out hover:scale-105">
+            <div class="flex">
+                {% for exercise in exercises %}
+                    <a href="{{ path("show_exercise", {'id': exercise.id}) }}">
+                        <div class="bg-primary m-3 shadow-lg text-secondary w-[12rem] transition-transform duration-300 ease-in-out hover:scale-105">
+                            <div class="flex items-center justify-center">
+                                <img src="/images/placeholder.png" alt="equipment-image">
+                            </div>
+                            <hr>
+                            <div class="flex items-center justify-center">
+                                {{ exercise.name }}
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+            <h2 class="text-3xl text-secondary">Muscles sollicités :</h2>
+            <div class="flex">
+                {% for muscle in muscles %}
+                    <div class="bg-primary m-3 shadow-lg text-secondary w-[12rem]">
                         <div class="flex items-center justify-center">
-                            <img src="/images/placeholder.png" alt="equipment-image">
+                            <img src="/images/placeholder.png" alt="muscle-image">
                         </div>
                         <hr>
                         <div class="flex items-center justify-center">
-                            {{ exercise.name }}
+                            {{ muscle.name }}
                         </div>
                     </div>
-                </a>
-            {% endfor %}
+                {% endfor %}
+            </div>
+            <h2 class="text-3xl text-secondary">Équipment nécessaire :</h2>
+            <div class="flex">
+                {% if equipments | length > 0 %}
+                    {% for equipment in equipments %}
+                        <div class="bg-primary m-3 shadow-lg text-secondary w-[12rem]">
+                            <div class="flex items-center justify-center">
+                                <img src="/images/placeholder.png" alt="muscle-image">
+                            </div>
+                            <hr>
+                            <div class="flex items-center justify-center">
+                                {{ equipment.name }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-xl ml-3 text-white"><i class="fa-solid fa-child-reaching"></i> Pas d'équipement nécessaire</p>
+                {% endif %}
+
+            </div>
         </div>
     </div>
 {% endblock %}

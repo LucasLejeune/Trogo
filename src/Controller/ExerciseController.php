@@ -6,6 +6,7 @@ use App\Data\AddExerciseDTO;
 use App\Entity\Exercise;
 use App\Form\AddExerciseType;
 use App\Repository\ExerciseRepository;
+use App\Repository\MuscleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,12 +16,13 @@ use Symfony\Component\Routing\Attribute\Route;
 class ExerciseController extends AbstractController
 {
     #[Route('/exercises/{id}', name: 'show_exercise', requirements: ['id' => '\d+'], methods: ['GET'])]
-    public function ShowExercise(Exercise $exercise, ExerciseRepository $exerciseRepository): Response
+    public function ShowExercise(Exercise $exercise, MuscleRepository $muscleRepository): Response
     {
-        $exerciseRepository->findOneBy(['id' => $exercise->getId()]);
+        $muscles = $muscleRepository->findAllByExercise($exercise);
 
         return $this->render('exercise/show-exercise.html.twig', [
             'exercise' => $exercise,
+            'muscles' => $muscles,
         ]);
     }
 
@@ -57,6 +59,4 @@ class ExerciseController extends AbstractController
             'form' => $form,
         ]);
     }
-
-
 }

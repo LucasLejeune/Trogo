@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Exercise;
 use App\Entity\Muscle;
+use App\Entity\Workout;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,28 +18,38 @@ class MuscleRepository extends ServiceEntityRepository
         parent::__construct($registry, Muscle::class);
     }
 
-    //    /**
-    //     * @return Muscle[] Returns an array of Muscle objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('m')
-    //            ->andWhere('m.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('m.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+     * @param Workout $workout
+     * @return Muscle[]
+     */
+    public function findAllByWorkout(Workout $workout): array
+    {
+        $queryBuilder = $this->createQueryBuilder('muscle');
 
-    //    public function findOneBySomeField($value): ?Muscle
-    //    {
-    //        return $this->createQueryBuilder('m')
-    //            ->andWhere('m.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        return $queryBuilder
+            ->innerJoin('muscle.exercises', 'exercise')
+            ->innerJoin('exercise.workouts', 'workout')
+            ->andWhere($queryBuilder->expr()->eq('workout', ':workout'))
+            ->setParameter('workout', $workout)
+            ->distinct()
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param Exercise $exercise
+     * @return Muscle[]
+     */
+    public function findAllByExercise(Exercise $exercise): array
+    {
+        $queryBuilder = $this->createQueryBuilder('muscle');
+
+        return $queryBuilder
+            ->innerJoin('muscle.exercises', 'exercise')
+            ->andWhere($queryBuilder->expr()->eq('exercise', ':exercise'))
+            ->setParameter('exercise', $exercise)
+            ->distinct()
+            ->getQuery()
+            ->getResult();
+    }
 }
