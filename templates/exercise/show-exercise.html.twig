@@ -57,6 +57,27 @@
                     {% endfor %}
                 </div>
             </div>
+            <div class="mt-3">
+                <div class="flex items-center mb-3">
+                    <i class="fa-solid fa-child"></i>&nbsp;
+                    <p class="text-3xl">Muscles sollicités</p>
+                </div>
+                <div class="ml-3 flex">
+                    {% for muscle in muscles %}
+                        <div class="bg-primary m-3 shadow-lg text-secondary w-[12rem]">
+                            <div class="flex items-center justify-center">
+                                <img src="/images/placeholder.png" class="card-img-top" alt="equipment-image">
+                            </div>
+                            <hr>
+                            <div class="flex items-center justify-center">
+                                <h5 class="card-title h5">
+                                    {{ muscle.name }}
+                                </h5>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

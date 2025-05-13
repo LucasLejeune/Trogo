@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Equipment;
+use App\Entity\Workout;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,28 +17,15 @@ class EquipmentRepository extends ServiceEntityRepository
         parent::__construct($registry, Equipment::class);
     }
 
-    //    /**
-    //     * @return Equipment[] Returns an array of Equipment objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('e')
-    //            ->andWhere('e.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('e.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Equipment
-    //    {
-    //        return $this->createQueryBuilder('e')
-    //            ->andWhere('e.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findAllByWorkout(Workout $workout): array
+    {
+        $queryBuilder = $this->createQueryBuilder('equipment');
+        return $queryBuilder
+            ->innerJoin('equipment.exercises', 'exercise')
+            ->innerJoin('exercise.workouts', 'workout')
+            ->andWhere($queryBuilder->expr()->eq('workout', ':workout'))
+            ->setParameter('workout', $workout)
+            ->getQuery()
+            ->getResult();
+    }
 }
