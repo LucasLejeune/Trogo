@@ -11,3 +11,35 @@ input {
 select {
     color: black;
 }
+
+.favorite-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.1s ease-in-out;
+}
+
+.favorite-btn i {
+    color: #e74c3c;
+    font-size: 1.5rem;
+    transition: transform 0.2s;
+}
+
+.favorite-btn.clicked i {
+    animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.4);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}

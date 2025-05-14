@@ -35,6 +35,7 @@ class HomeController extends AbstractController
         }
         return $this->render('home/home.html.twig', [
             'workouts' => $workouts,
+            'user' => $user,
         ]);
     }
 }

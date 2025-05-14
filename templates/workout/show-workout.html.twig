@@ -7,8 +7,11 @@
         <button class="border-2 border-secondary py-1 px-2 text-base cursor-pointer text-secondary transition-transform duration-300 ease-in-out hover:scale-105" onClick="window.history.back();">
             Retour
         </button>
-        <div class="flex justify-center">
+        <div class="flex justify-center items-center">
             <h1 class="text-5xl text-secondary">Entrainement : <span class="text-white">{{ workout.name }}</span></h1>
+            <button id="favorite-btn" class="favorite-btn ml-3" data-id="{{ workout.id }}" aria-label="Ajouter aux favoris">
+                <i class="fa-heart fa{{ isFavorite ? 's' : 'r' }}"></i>
+            </button>
         </div>
         <div class="bg-darkblue h-screen">
             <h2 class="text-3xl text-secondary">Exercices :</h2>
