@@ -22,14 +22,6 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class WorkoutController extends AbstractController
 {
-    #[Route('/workouts', name: 'app_workout')]
-    public function index(): Response
-    {
-        return $this->render('workout/index.html.twig', [
-            'controller_name' => 'WorkoutController',
-        ]);
-    }
-
     #[Route('/workouts/add', name: 'create_workout')]
     public function createWorkout(Request $request, EntityManagerInterface $entityManager, ExerciseRepository $exerciseRepository, UserRepository $userRepository): Response
     {
