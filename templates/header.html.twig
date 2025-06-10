@@ -16,11 +16,17 @@
         <div class="flex items-center">
             <div class="relative">
             {% if app.user %}
+                {% if is_granted('ROLE_ADMIN')%}
+                    <button id="adminDropdownButton"
+                        class="text-primary px-4 py-2 rounded focus:outline-none focus:ring focus:ring-primary">
+                        <i class="fa-solid fa-user"></i>
+                        <span>Admin</span>
+                    </button>
+                {% endif %}
                 <button id="dropdownButton"
                         class="text-primary px-4 py-2 rounded focus:outline-none focus:ring focus:ring-primary">
                     <i class="fa-solid fa-user"></i>
                     <span>Profil</span>
-
                 </button>
             {% else %}
                 <button id="dropdownButton" class="border-2 border-secondary bg-primary p-2 text-base cursor-pointer text-secondary transition-transform duration-300 ease-in-out hover:scale-105">
@@ -47,13 +53,21 @@
                         <a href="{{ path('app_register') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">S'inscrire</a>
                     {% endif %}
                 </div>
+                
+                <div id="adminDropdownMenu"
+                class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg">
+                   {% if is_granted('workout_create') %}
+                       <a href="{{ path('create_workout') }}"
+                       class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Créer un entrainement</a>
+                       <hr>
+                   {% endif %}
+               </div>
             </div>
         </div>
     </div>
 </nav>
 
 <script>
-    // Dropdown functionality
     const dropdownButton = document.getElementById('dropdownButton');
     const dropdownMenu = document.getElementById('dropdownMenu');
 
@@ -61,12 +75,22 @@
         dropdownMenu.classList.toggle('hidden');
     });
 
-    // Close the dropdown if clicked outside
     window.addEventListener('click', (e) => {
         if (!dropdownButton.contains(e.target) && !dropdownMenu.contains(e.target)) {
             dropdownMenu.classList.add('hidden');
         }
     });
+
+    const adminDropdownButton = document.getElementById('adminDropdownButton');
+    const adminDropdownMenu = document.getElementById('adminDropdownMenu');    
+
+    adminDropdownButton.addEventListener('click', () => {
+        adminDropdownMenu.classList.toggle('hidden');
+    });
+
+    window.addEventListener('click', (e) => {
+        if (!adminDropdownButton.contains(e.target) && !adminDropdownMenu.contains(e.target)) {
+            adminDropdownMenu.classList.add('hidden');
+        }
+    });
 </script>
-<style>
-</style>

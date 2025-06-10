@@ -12,6 +12,11 @@
             <button id="favorite-btn" class="favorite-btn ml-3" data-id="{{ workout.id }}" aria-label="Ajouter aux favoris">
                 <i class="fa-heart fa{{ isFavorite ? 's' : 'r' }}"></i>
             </button>
+            {% if is_granted('workout_edit') %}
+                <a href="{{path('create_workout')}}" id="edit-btn" class="edit-btn ml-3 text-white" aria-label="Modifier l'entrainement">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </a>
+            {% endif %}
         </div>
         <div class="bg-darkblue h-screen">
             <h2 class="text-3xl text-secondary">Exercices :</h2>

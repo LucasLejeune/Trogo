@@ -13,6 +13,7 @@ use App\Repository\ExerciseRepository;
 use App\Repository\MuscleRepository;
 use App\Repository\UserRepository;
 use App\Repository\WorkoutRepository;
+use App\Security\WorkoutVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -25,6 +26,9 @@ class WorkoutController extends AbstractController
     #[Route('/workouts/add', name: 'create_workout')]
     public function createWorkout(Request $request, EntityManagerInterface $entityManager, ExerciseRepository $exerciseRepository, UserRepository $userRepository): Response
     {
+        if (!$this->isGranted(WorkoutVoter::CREATE)) {
+            return $this->redirectToRoute('app_landing');
+        }
         $createWorkoutDTO = new CreateWorkoutDTO();
         $form = $this->createForm(CreateWorkoutType::class, $createWorkoutDTO);
         $form->handleRequest($request);
