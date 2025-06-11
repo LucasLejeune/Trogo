@@ -7,6 +7,7 @@ use App\Entity\Exercise;
 use App\Form\AddExerciseType;
 use App\Repository\ExerciseRepository;
 use App\Repository\MuscleRepository;
+use App\Security\ExerciceVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,6 +30,9 @@ class ExerciseController extends AbstractController
     #[Route('/exercises/add', name: 'add_exercise')]
     public function addExercise(Request $request, EntityManagerInterface $entityManager): Response
     {
+        if(!$this->iSGranted(ExericeVoter::CREATE)) {
+            return $this->redirectToRoute('app_landing');
+        }
         $addExerciseDTO = new AddExerciseDTO();
         $form = $this->createForm(AddExerciseType::class, $addExerciseDTO);
 
